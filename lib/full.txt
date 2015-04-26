@@ -1,0 +1,7017 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <title>商家后台-订单统计</title>
+    <!-- jquery去掉版本号，本次更新不需要重新加载 -->
+    <script type="text/javascript" src="/static/compress/js/lib/jquery-1.10.2.min.js"></script>
+    <!-- 统计分析start-->
+    <script type="text/javascript">
+        var MT_WM = window.MT_WM || {};
+        MT_WM.TimeTracker = { rt: 1430059474100, st: Date.now() };
+        MT_WM.logFirstScreenTime = function () {
+            MT_WM.TimeTracker.fst = Date.now();
+        };
+        window.addEventListener('load', function () {
+            //保存性能时间
+            MT_WM.TimeTracker.lt = Date.now();
+        });
+    </script>
+    <script type="text/javascript" src="/static/compress/js/lib/becon_log.js"></script>
+    <script type="text/javascript">
+        var pageName = window.location.pathname;
+        if (pageName != 'undefined') {
+            pageName = 'waimai_e' + pageName.split('/').join('_');
+            window.bLog(pageName);
+        }
+    </script>
+    <!--统计分析end-->
+       <script type="text/javascript">
+       var VM = {};
+       VM.BOOTSTAMP = new Date().getTime();
+
+       VM.STATIC_URL = "/static/compress/js/";
+
+       </script>
+
+       <!-- 原先引入的脚本文件 start -->
+       <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/static/compress/imgs/projectavatar.png">
+       <!-- 原先引入的脚本文件 end -->
+
+      <!-- 各个页面公用的全局css样式，引入了所有公用css文件 start -->
+      <link rel="stylesheet" type="text/css" href="/static/compress/css/global.css?ver=5539e91b">
+      <!-- 各个页面公用的全局css样式 end -->
+
+       <!-- 当前页面的引入的样式 start -->
+       <link rel="stylesheet" href="/static/compress/css/page/order/statistics.css?ver=5539e91b" />
+       <!-- 当前页面的引入的样式 end -->
+
+  </head>
+
+  <body>
+    <div class="wrapper">
+<!--通告提示-->
+<div class="boards-wrapper">
+  <!-- 前格式通告 start -->
+  <!-- 如果后台没有给个容器来放轮训内容 -->
+  <div class="board tips-board hide" >
+    <p><i class="icon i-add" style="margin-right: 10px"></i>
+      <span id="b-tip"></span><a style="margin-left: 10px" id="b-link" href="#"></a>
+      <i class="close-board icon i-close fr"></i>
+    </p>
+  </div>
+  <!-- 前格式通告 ends -->
+  
+</div>
+
+
+
+
+
+
+
+
+<div class="coupon-verify if-content">
+<div id="doc" class="ecom-w980" style="position: relative;">
+<!-- bdw start -->
+<div id="bdw" class="bdw">
+<div id="bd" class="cf">
+<div class="e-content e-content--hastab pg-coupon-verify">
+<div class="standard-title cf ">
+    <h1 class="fl">历史订单</h1>
+</div>
+<div class="content" id="orders-view">
+<div class="order-title date-banner cf">
+<div id="orderType" class="date-banner cf ">
+    <div class="block-small fl">
+        <label>查询订单类型：</label>
+    </div>
+
+    <input name="orderType" value="all" type="radio"
+           checked="checked"/>全部</input>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="orderType" value="wm_orders" type="radio"
+           />美团外卖&nbsp;{</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="available"
+            >有效</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="unavailable"
+            >无效&nbsp;}</input>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="orderType" value="onlinePaid" type="radio"
+           />在线支付&nbsp;{</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="paySuccess"
+            >有效</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="refund"
+            >无效&nbsp;</input>
+    <span>
+       }
+    </span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="orderType" value="offlinePaid" type="radio"
+           />线下支付&nbsp;{</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="offlineAvailable"
+            >有效</input>
+    <input type="radio" name="orderType" id="orderType" class="orderType" value="offlineUnavailable"
+            >无效&nbsp;}</input>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <input name="orderType" value="tel_orders" type="radio"
+           />电话外卖</input>
+
+</div>
+
+<div class="double-picker cf">
+    <span class="fl text select-text">选择日期：</span>
+
+    <div class="fl date-picker">
+        <input type="text" class="J-datepicker" id="J-start"
+               value="2015-04-26"
+                               />
+    </div>
+    <span class="fl text to-text">至</span>
+
+    <div class="fl date-picker">
+        <input type="text" class="J-datepicker" id="J-end"
+               value="2015-04-26"
+                               />
+    </div>
+    <span class="btn btn-default" id="J-query">查询</span>
+</div>
+
+<!-- 屏蔽订单统计功能 start -->
+<!-- 屏蔽订单统计功能 end -->
+
+<div class="date-banner cf">
+    <div class="fr">
+            <ul class="page-navbar">
+                    <span class="disable">首页</span>
+                    <span class="disable prevPage">上一页</span>
+                        <span data-page="1" class="current">1</span>
+                    <span class="disable nextPage">下一页</span>
+                    <span class="disable">尾页</span>
+            </ul>
+    </div>
+</div>
+
+<ul id="orders-container">
+        <li>
+            <div class="order 617441032532039">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">22</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617441032532039</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 19:46:23</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">雷老师</span><span>用户电话：</span><span class="fontBold J-user-phone">18317051680</span><span>地址：</span><span class="fontBold">上海交大南洋青年教师公寓8号楼</span><a href="javascript:userHistory('18317051680');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">土豆烧鸡饭套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237358653" data-id-seq="22"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617441032532039" id="copyContent_617441032532039" value="4月26日
+  #22号单#
+  港式餐厅
+  雷老师
+  18317051680
+  上海交大南洋青年教师公寓8号楼
+  土豆烧鸡饭套餐 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617441032532039"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617441032532039">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393237128223">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">21</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393237128223</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 19:42:55</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">刘兴燕</span><span>用户电话：</span><span class="fontBold J-user-phone">18818275295</span><span>地址：</span><span class="fontBold">华东师范大学本科生公寓11号楼</span><a href="javascript:userHistory('18818275295');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+    <p class="custom-info ct-darkgrey height-40">
+        <span>备注：</span>
+        <span class="fontBold">南瓜粥</span>
+    </p>
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">蔬菜石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237353077" data-id-seq="21"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393237128223" id="copyContent_617393237128223" value="4月26日
+  #21号单#
+  大学路韩国料理
+  刘兴燕
+  18818275295
+  华东师范大学本科生公寓11号楼
+  南瓜粥
+  蔬菜石锅拌饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393237128223"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393237128223">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617440968116258">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">21</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617440968116258</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 18:33:25</span>
+        <span class="state medFont">金额：14元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">朱泽民</span><span>用户电话：</span><span class="fontBold J-user-phone">18916332168</span><span>地址：</span><span class="fontBold">上海交通大学闵行校区西-16栋</span><a href="javascript:userHistory('18916332168');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">椒盐排骨饭</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减1元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-1.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">14元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237180770" data-id-seq="21"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617440968116258" id="copyContent_617440968116258" value="4月26日
+  #21号单#
+  港式餐厅
+  朱泽民
+  18916332168
+  上海交通大学闵行校区西-16栋
+  椒盐排骨饭 1份
+  合计：14.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617440968116258"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617440968116258">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393794963103">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">20</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393794963103</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 19:03:55</span>
+        <span class="state medFont">金额：16元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13761722917</span><span>地址：</span><span class="fontBold">华东师大本科生公寓20楼</span><a href="javascript:userHistory('13761722917');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">韩式鸡翅</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">16元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237270313" data-id-seq="20"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393794963103" id="copyContent_617393794963103" value="4月26日
+  #20号单#
+  大学路韩国料理
+  
+  13761722917
+  华东师大本科生公寓20楼
+  肥牛石锅拌饭 1份
+  韩式鸡翅 1份
+  合计：16.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393794963103"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393794963103">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617441132605302">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">20</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617441132605302</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 18:20:52</span>
+        <span class="state medFont">金额：11元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15221407590</span><span>地址：</span><span class="fontBold">交大西33</span><a href="javascript:userHistory('15221407590');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">黑椒鸡扒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减1元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-1.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">11元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237136670" data-id-seq="20"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617441132605302" id="copyContent_617441132605302" value="4月26日
+  #20号单#
+  港式餐厅
+  
+  15221407590
+  交大西33
+  黑椒鸡扒饭 1份
+  合计：11.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617441132605302"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617441132605302">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617391268879492">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">19</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617391268879492</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 19:03:34</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18818270038</span><span>地址：</span><span class="fontBold">华东师范大学闵行校区本科20号楼</span><a href="javascript:userHistory('18818270038');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237269168" data-id-seq="19"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617391268879492" id="copyContent_617391268879492" value="4月26日
+  #19号单#
+  大学路韩国料理
+  
+  18818270038
+  华东师范大学闵行校区本科20号楼
+  肥牛石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617391268879492"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617391268879492">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443237128223">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">19</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443237128223</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 17:48:57</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15901700476</span><span>地址：</span><span class="fontBold">交大东17</span><a href="javascript:userHistory('15901700476');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">咖喱滑鸡饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237016517" data-id-seq="19"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443237128223" id="copyContent_617443237128223" value="4月26日
+  #19号单#
+  港式餐厅
+  
+  15901700476
+  交大东17
+  咖喱滑鸡饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443237128223"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443237128223">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617391839121678">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">18</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617391839121678</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 18:58:51</span>
+        <span class="state medFont">金额：11元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15900952775</span><span>地址：</span><span class="fontBold">上海交通大学（闵行校区）东16号楼</span><a href="javascript:userHistory('15900952775');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">泡菜培根炒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">11元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237257603" data-id-seq="18"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617391839121678" id="copyContent_617391839121678" value="4月26日
+  #18号单#
+  大学路韩国料理
+  
+  15900952775
+  上海交通大学（闵行校区）东16号楼
+  泡菜培根炒饭 1份
+  合计：11.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617391839121678"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617391839121678">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443794963103">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">18</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443794963103</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 17:39:43</span>
+        <span class="state medFont">金额：11元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13262278003</span><span>地址：</span><span class="fontBold">上海交通大学东26宿舍楼</span><a href="javascript:userHistory('13262278003');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">尖椒炒肥肠套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">11元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236980519" data-id-seq="18"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443794963103" id="copyContent_617443794963103" value="4月26日
+  #18号单#
+  港式餐厅
+  
+  13262278003
+  上海交通大学东26宿舍楼
+  尖椒炒肥肠套餐 1份
+  合计：11.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443794963103"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443794963103">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617390016838185">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">17</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617390016838185</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 18:44:26</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15002146684</span><span>地址：</span><span class="fontBold">华东师范大学闵行校区本科生公寓11号楼</span><a href="javascript:userHistory('15002146684');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">蔬菜石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="237202248" data-id-seq="17"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617390016838185" id="copyContent_617390016838185" value="4月26日
+  #17号单#
+  大学路韩国料理
+  
+  15002146684
+  华东师范大学闵行校区本科生公寓11号楼
+  蔬菜石锅拌饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617390016838185"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617390016838185">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617441268879492">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">17</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617441268879492</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 17:07:10</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15026601069</span><span>地址：</span><span class="fontBold">交大闵行校区西34</span><a href="javascript:userHistory('15026601069');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">椒盐排骨饭</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236848798" data-id-seq="17"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617441268879492" id="copyContent_617441268879492" value="4月26日
+  #17号单#
+  港式餐厅
+  
+  15026601069
+  交大闵行校区西34
+  椒盐排骨饭 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617441268879492"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617441268879492">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617440016838185">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">16</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617440016838185</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 17:04:21</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13122091881</span><span>地址：</span><span class="fontBold">东川路800号上海交通大学学生宿舍D18</span><a href="javascript:userHistory('13122091881');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">咖喱滑鸡饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236840118" data-id-seq="16"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617440016838185" id="copyContent_617440016838185" value="4月26日
+  #16号单#
+  港式餐厅
+  
+  13122091881
+  东川路800号上海交通大学学生宿舍D18
+  咖喱滑鸡饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617440016838185"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617440016838185">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393731080163">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">16</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393731080163</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 16:58:18</span>
+        <span class="state medFont">金额：14元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15618996353</span><span>地址：</span><span class="fontBold">交大闵行校区西区宿舍x39</span><a href="javascript:userHistory('15618996353');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">14元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236821538" data-id-seq="16"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393731080163" id="copyContent_617393731080163" value="4月26日
+  #16号单#
+  大学路韩国料理
+  
+  15618996353
+  交大闵行校区西区宿舍x39
+  鸡肉石锅拌饭 1份
+  合计：14.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393731080163"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393731080163">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443731080163">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">15</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443731080163</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 16:44:34</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">周</span><span>用户电话：</span><span class="fontBold J-user-phone">15026616097</span><span>地址：</span><span class="fontBold">交大x31 205</span><a href="javascript:userHistory('15026616097');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+    <p class="custom-info ct-darkgrey height-40">
+        <span>备注：</span>
+        <span class="fontBold">蔬菜多一点！</span>
+    </p>
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">菠萝咕噜肉套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236785733" data-id-seq="15"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443731080163" id="copyContent_617443731080163" value="4月26日
+  #15号单#
+  港式餐厅
+  周
+  15026616097
+  交大x31 205
+  蔬菜多一点！
+  菠萝咕噜肉套餐 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443731080163"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443731080163">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617391448174383">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">15</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617391448174383</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 16:17:15</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18818270597</span><span>地址：</span><span class="fontBold">华师大本科生公寓2号楼</span><a href="javascript:userHistory('18818270597');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236736543" data-id-seq="15"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617391448174383" id="copyContent_617391448174383" value="4月26日
+  #15号单#
+  大学路韩国料理
+  
+  18818270597
+  华师大本科生公寓2号楼
+  肥牛石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617391448174383"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617391448174383">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617441448174383">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">14</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617441448174383</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 16:31:09</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15121117956</span><span>地址：</span><span class="fontBold">交大西31</span><a href="javascript:userHistory('15121117956');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">扬州炒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236758751" data-id-seq="14"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617441448174383" id="copyContent_617441448174383" value="4月26日
+  #14号单#
+  港式餐厅
+  
+  15121117956
+  交大西31
+  扬州炒饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617441448174383"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617441448174383">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393040983974">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">14</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393040983974</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 15:57:55</span>
+        <span class="state medFont">金额：14元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">杨钦麟</span><span>用户电话：</span><span class="fontBold J-user-phone">15102102568</span><span>地址：</span><span class="fontBold">华东师范大学闵行校区本科生公寓10号楼</span><a href="javascript:userHistory('15102102568');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+    <p class="custom-info ct-darkgrey height-40">
+        <span>备注：</span>
+        <span class="fontBold"> 快点送</span>
+    </p>
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">14元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236713626" data-id-seq="14"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393040983974" id="copyContent_617393040983974" value="4月26日
+  #14号单#
+  大学路韩国料理
+  杨钦麟
+  15102102568
+  华东师范大学闵行校区本科生公寓10号楼
+   快点送
+  肥牛石锅拌饭 1份
+  合计：14.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393040983974"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393040983974">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443040983974">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">13</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443040983974</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 15:50:46</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18217570861</span><span>地址：</span><span class="fontBold">交大闵行校区西23宿舍楼</span><a href="javascript:userHistory('18217570861');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">黑椒鸡扒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236709213" data-id-seq="13"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443040983974" id="copyContent_617443040983974" value="4月26日
+  #13号单#
+  港式餐厅
+  
+  18217570861
+  交大闵行校区西23宿舍楼
+  黑椒鸡扒饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443040983974"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443040983974">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393775655488">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">13</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393775655488</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 14:04:19</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18818270559</span><span>地址：</span><span class="fontBold">华东师范大学本科生公寓20号楼</span><a href="javascript:userHistory('18818270559');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236634885" data-id-seq="13"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393775655488" id="copyContent_617393775655488" value="4月26日
+  #13号单#
+  大学路韩国料理
+  
+  18818270559
+  华东师范大学本科生公寓20号楼
+  鸡肉石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393775655488"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393775655488">复制订单</a>
+
+                        <span class="order-status fr">
+                        14:50 用户已确认收货
+                        </span>
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443775655488">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">12</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443775655488</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 14:56:36</span>
+        <span class="state medFont">金额：17元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18818270129</span><span>地址：</span><span class="fontBold">上海交大 闵行  西17</span><a href="javascript:userHistory('18818270129');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">综合冰</div>
+      </td>
+      <td>
+        <div class="td-inner">22元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">22元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">17元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236674480" data-id-seq="12"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443775655488" id="copyContent_617443775655488" value="4月26日
+  #12号单#
+  港式餐厅
+  
+  18818270129
+  上海交大 闵行  西17
+  综合冰 1份
+  合计：17.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443775655488"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443775655488">复制订单</a>
+
+                        <span class="order-status fr">
+                        15:48 用户已确认收货
+                        </span>
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393623687531">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">12</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393623687531</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 13:50:08</span>
+        <span class="state medFont">金额：29元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15212536201</span><span>地址：</span><span class="fontBold">时刻送</span><a href="javascript:userHistory('15212536201');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">2</div>
+      </td>
+      <td>
+        <div class="td-inner">34元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">29元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236620410" data-id-seq="12"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393623687531" id="copyContent_617393623687531" value="4月26日
+  #12号单#
+  大学路韩国料理
+  
+  15212536201
+  时刻送
+  肥牛石锅拌饭 2份
+  合计：29.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393623687531"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393623687531">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617392126457000">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">11</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617392126457000</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 13:39:52</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15247526629</span><span>地址：</span><span class="fontBold">华师大本科生20楼</span><a href="javascript:userHistory('15247526629');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+    <p class="custom-info ct-darkgrey height-40">
+        <span>备注：</span>
+        <span class="fontBold">配菜要泡菜  不要拿别的！！！
+别忘了南瓜粥
+谢谢！！！！！！！</span>
+    </p>
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236607838" data-id-seq="11"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617392126457000" id="copyContent_617392126457000" value="4月26日
+  #11号单#
+  大学路韩国料理
+  
+  15247526629
+  华师大本科生20楼
+  配菜要泡菜  不要拿别的！！！
+别忘了南瓜粥
+谢谢！！！！！！！
+  鸡肉石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617392126457000"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617392126457000">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443623687531">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">11</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443623687531</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 13:37:30</span>
+        <span class="state medFont">金额：79元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18917928655</span><span>地址：</span><span class="fontBold">东川路八天连锁酒店8108房</span><a href="javascript:userHistory('18917928655');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">白切鸡套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">14元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">14元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鱼香茄子煲</div>
+      </td>
+      <td>
+        <div class="td-inner">20元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">20元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">冰糖银耳杏仁炖雪梨</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">椰汁西瓜冰淇淋水果捞</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">上汤娃娃菜</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">79元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236604103" data-id-seq="11"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443623687531" id="copyContent_617443623687531" value="4月26日
+  #11号单#
+  港式餐厅
+  
+  18917928655
+  东川路八天连锁酒店8108房
+  白切鸡套餐 1份
+  鱼香茄子煲 1份
+  冰糖银耳杏仁炖雪梨 1份
+  椰汁西瓜冰淇淋水果捞 1份
+  上汤娃娃菜 1份
+  合计：79.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443623687531"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443623687531">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617442126457000">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">10</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617442126457000</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:58:52</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13262610050</span><span>地址：</span><span class="fontBold">东川路800号上海交通大学 西23-316</span><a href="javascript:userHistory('13262610050');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">黑椒鸡扒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236533449" data-id-seq="10"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617442126457000" id="copyContent_617442126457000" value="4月26日
+  #10号单#
+  港式餐厅
+  
+  13262610050
+  东川路800号上海交通大学 西23-316
+  黑椒鸡扒饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617442126457000"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617442126457000">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617391809550805">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">10</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617391809550805</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:34:00</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13764759156</span><span>地址：</span><span class="fontBold">上海交大闵行校区东19楼</span><a href="javascript:userHistory('13764759156');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236456582" data-id-seq="10"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617391809550805" id="copyContent_617391809550805" value="4月26日
+  #10号单#
+  大学路韩国料理
+  
+  13764759156
+  上海交大闵行校区东19楼
+  鸡肉石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617391809550805"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617391809550805">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617441809550805">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">9</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617441809550805</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:54:35</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18217295909</span><span>地址：</span><span class="fontBold">上海交通大学（闵行校区）西27号楼</span><a href="javascript:userHistory('18217295909');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">椰汁黑米露</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236522000" data-id-seq="9"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617441809550805" id="copyContent_617441809550805" value="4月26日
+  #9号单#
+  港式餐厅
+  
+  18217295909
+  上海交通大学（闵行校区）西27号楼
+  椰汁黑米露 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617441809550805"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617441809550805">复制订单</a>
+
+                        <span class="order-status fr">
+                        14:03 用户已确认收货
+                        </span>
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617394285271976">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">9</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617394285271976</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:17:17</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">田青凡</span><span>用户电话：</span><span class="fontBold J-user-phone">18817556542</span><span>地址：</span><span class="fontBold">闵行华东师范大学本科生公寓8号楼</span><a href="javascript:userHistory('18817556542');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236386272" data-id-seq="9"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617394285271976" id="copyContent_617394285271976" value="4月26日
+  #9号单#
+  大学路韩国料理
+  田青凡
+  18817556542
+  闵行华东师范大学本科生公寓8号楼
+  肥牛石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617394285271976"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617394285271976">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393940616515">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">8</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393940616515</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:04:44</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">13756204646</span><span>地址：</span><span class="fontBold">西13栋宿舍</span><a href="javascript:userHistory('13756204646');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">泡菜培根炒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减1元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-1.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236322310" data-id-seq="8"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393940616515" id="copyContent_617393940616515" value="4月26日
+  #8号单#
+  大学路韩国料理
+  
+  13756204646
+  西13栋宿舍
+  泡菜培根炒饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393940616515"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393940616515">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617444285271976">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">8</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617444285271976</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 12:03:38</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">cbw</span><span>用户电话：</span><span class="fontBold J-user-phone">13166223919</span><span>地址：</span><span class="fontBold">上海交大 西19 108</span><a href="javascript:userHistory('13166223919');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">咖喱海鲜饭</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236316604" data-id-seq="8"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617444285271976" id="copyContent_617444285271976" value="4月26日
+  #8号单#
+  港式餐厅
+  cbw
+  13166223919
+  上海交大 西19 108
+  咖喱海鲜饭 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617444285271976"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617444285271976">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617394250438374">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">7</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617394250438374</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:51:28</span>
+        <span class="state medFont">金额：14元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18964042822</span><span>地址：</span><span class="fontBold">华师大闵行校区本科生公寓20号楼</span><a href="javascript:userHistory('18964042822');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">蔬菜石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">韩式鸡翅</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">14元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236242591" data-id-seq="7"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617394250438374" id="copyContent_617394250438374" value="4月26日
+  #7号单#
+  大学路韩国料理
+  
+  18964042822
+  华师大闵行校区本科生公寓20号楼
+  蔬菜石锅拌饭 1份
+  韩式鸡翅 1份
+  合计：14.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617394250438374"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617394250438374">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443940616515">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">7</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443940616515</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:48:06</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">李英林</span><span>用户电话：</span><span class="fontBold J-user-phone">18818213914</span><span>地址：</span><span class="fontBold">上海交大西19-116</span><a href="javascript:userHistory('18818213914');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">黑椒牛柳套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236218857" data-id-seq="7"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443940616515" id="copyContent_617443940616515" value="4月26日
+  #7号单#
+  港式餐厅
+  李英林
+  18818213914
+  上海交大西19-116
+  黑椒牛柳套餐 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443940616515"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443940616515">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617392172360118">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">6</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617392172360118</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:30:53</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold">许航</span><span>用户电话：</span><span class="fontBold J-user-phone">13122190927</span><span>地址：</span><span class="fontBold">东川路800号上海交通大学西28号楼</span><a href="javascript:userHistory('13122190927');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+    <p class="custom-info ct-darkgrey height-40">
+        <span>备注：</span>
+        <span class="fontBold">麻烦把辣酱放进去一起拌，谢谢老板</span>
+    </p>
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236100695" data-id-seq="6"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617392172360118" id="copyContent_617392172360118" value="4月26日
+  #6号单#
+  大学路韩国料理
+  许航
+  13122190927
+  东川路800号上海交通大学西28号楼
+  麻烦把辣酱放进去一起拌，谢谢老板
+  肥牛石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617392172360118"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617392172360118">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617444250438374">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">6</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617444250438374</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:25:19</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18817557811</span><span>地址：</span><span class="fontBold">上海交大闵行校区东一楼</span><a href="javascript:userHistory('18817557811');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">土豆烧鸡饭套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236057252" data-id-seq="6"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617444250438374" id="copyContent_617444250438374" value="4月26日
+  #6号单#
+  港式餐厅
+  
+  18817557811
+  上海交大闵行校区东一楼
+  土豆烧鸡饭套餐 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617444250438374"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617444250438374">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617392228004981">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">5</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617392228004981</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:29:20</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15026697593</span><span>地址：</span><span class="fontBold">D19</span><a href="javascript:userHistory('15026697593');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">肥牛石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减1元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-1.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236090065" data-id-seq="5"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617392228004981" id="copyContent_617392228004981" value="4月26日
+  #5号单#
+  大学路韩国料理
+  
+  15026697593
+  D19
+  肥牛石锅拌饭 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617392228004981"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617392228004981">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617442172360118">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">5</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617442172360118</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 10:50:12</span>
+        <span class="state medFont">金额：15元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18817558955</span><span>地址：</span><span class="fontBold">上海交通大学闵行校区东一楼</span><a href="javascript:userHistory('18817558955');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">生炒牛肉饭</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">15元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235829227" data-id-seq="5"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617442172360118" id="copyContent_617442172360118" value="4月26日
+  #5号单#
+  港式餐厅
+  
+  18817558955
+  上海交通大学闵行校区东一楼
+  生炒牛肉饭 1份
+  合计：15.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617442172360118"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617442172360118">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617393301045328">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">4</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617393301045328</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:25:07</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15852822733</span><span>地址：</span><span class="fontBold">交大东3</span><a href="javascript:userHistory('15852822733');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="236059090" data-id-seq="4"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617393301045328" id="copyContent_617393301045328" value="4月26日
+  #4号单#
+  大学路韩国料理
+  
+  15852822733
+  交大东3
+  鸡肉石锅拌饭 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617393301045328"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617393301045328">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617442228004981">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">4</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617442228004981</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 10:48:39</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18818272583</span><span>地址：</span><span class="fontBold">交大西19楼 108</span><a href="javascript:userHistory('18818272583');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">咖喱滑鸡饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235820685" data-id-seq="4"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617442228004981" id="copyContent_617442228004981" value="4月26日
+  #4号单#
+  港式餐厅
+  
+  18818272583
+  交大西19楼 108
+  咖喱滑鸡饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617442228004981"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617442228004981">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617390674219382">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">3</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617390674219382</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 11:10:27</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18573124550</span><span>地址：</span><span class="fontBold">上海市华东师范大学闵行校区大学本科11号楼</span><a href="javascript:userHistory('18573124550');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">蔬菜石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235953492" data-id-seq="3"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617390674219382" id="copyContent_617390674219382" value="4月26日
+  #3号单#
+  大学路韩国料理
+  
+  18573124550
+  上海市华东师范大学闵行校区大学本科11号楼
+  蔬菜石锅拌饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617390674219382"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617390674219382">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617443301045328">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">3</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617443301045328</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 10:34:56</span>
+        <span class="state medFont">金额：12元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15026661517</span><span>地址：</span><span class="fontBold">上海交大东15号楼</span><a href="javascript:userHistory('15026661517');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">土豆烧鸡饭套餐</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">12元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235761339" data-id-seq="3"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617443301045328" id="copyContent_617443301045328" value="4月26日
+  #3号单#
+  港式餐厅
+  
+  15026661517
+  上海交大东15号楼
+  土豆烧鸡饭套餐 1份
+  合计：12.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617443301045328"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617443301045328">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617440674219382">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">2</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617440674219382</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 10:08:38</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15026613963</span><span>地址：</span><span class="fontBold">交大闵行校区东18</span><a href="javascript:userHistory('15026613963');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">萝卜牛腩饭</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">18元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235693915" data-id-seq="2"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617440674219382" id="copyContent_617440674219382" value="4月26日
+  #2号单#
+  港式餐厅
+  
+  15026613963
+  交大闵行校区东18
+  萝卜牛腩饭 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617440674219382"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617440674219382">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617392521088260">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">2</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617392521088260</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 09:56:12</span>
+        <span class="state medFont">金额：13元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15121108693</span><span>地址：</span><span class="fontBold">华师大本科生公寓21号楼</span><a href="javascript:userHistory('15121108693');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">鸡肉石锅拌饭</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">17元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减1元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-1.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">13元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235674264" data-id-seq="2"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617392521088260" id="copyContent_617392521088260" value="4月26日
+  #2号单#
+  大学路韩国料理
+  
+  15121108693
+  华师大本科生公寓21号楼
+  鸡肉石锅拌饭 1份
+  合计：13.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617392521088260"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617392521088260">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617442521088260">
+<div class="details">
+    <img src="/static/imgs/online_paid.png" class="online-paid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">1</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617442521088260</span>
+        <span class="state medFont">港式餐厅（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 09:43:40</span>
+        <span class="state medFont">金额：10元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>在线支付：用户已经在线支付过该订单费用，配送时无需再收取用户费用</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">15121198178</span><span>地址：</span><span class="fontBold">交大闵行校区东19</span><a href="javascript:userHistory('15121198178');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">黑椒鸡扒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">15元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">10元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235662137" data-id-seq="1"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617442521088260" id="copyContent_617442521088260" value="4月26日
+  #1号单#
+  港式餐厅
+  
+  15121198178
+  交大闵行校区东19
+  黑椒鸡扒饭 1份
+  合计：10.0元 (已付款)
+  在线支付订单">
+                    <a href="javascript:void(0);" id="copyOrder_617442521088260"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617442521088260">复制订单</a>
+
+
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="order 617394201650445">
+<div class="details">
+    <img src="/static/imgs/invalid.png" class="invalid-order">
+    <p class="panel panel-default panel-self-head ct-brown">
+
+        <span class="larFontBold state J-day-seq">1</span>
+        <span class="state medFont J-order-viewid"><span>订单号：</span>617394201650445</span>
+        <span class="state medFont">大学路韩国料理（上海）</span>
+        <span class="state medFont"><span>时间：</span>2015-04-26 09:37:35</span>
+        <span class="state medFont">金额：15元</span>
+    </p>
+        <p class="warning"><img src="/static/imgs/messagebox_warning.png" style="margin-right: 8px"/>该订单已被用户取消，请勿配送</p>
+    <p class="custom-info ct-darkgrey">
+        <span>用户姓名：</span><span class="fontBold"></span><span>用户电话：</span><span class="fontBold J-user-phone">18801917567</span><span>地址：</span><span class="fontBold">华师大本科生公寓1号楼</span><a href="javascript:userHistory('18801917567');"
+           style="display: inline-block;  height: 20px;  padding: 0 5px; background-color: #F7F7F7; border: 1px solid #D5D5D5; text-align: center; line-height: 20px; font-size: 12px; color: #333333; -webkit-border-radius: 3px;">
+            用户历史订单
+        </a>
+
+    </p>
+
+
+
+</div>
+
+<table class="order-table">
+  <tbody>
+    <tr class="basket-thead">
+      <td>
+          <div class="td-inner">菜品</div>
+      </td>
+      <td>
+        <div class="td-inner">单价</div>
+      </td>
+      <td>
+        <div class="td-inner">份数</div>
+      </td>
+      <td>
+        <div class="td-inner">金额</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">泡菜培根炒饭</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">16元</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="td-inner align-left">韩式鸡翅</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+      <td>
+        <div class="td-inner">1</div>
+      </td>
+      <td>
+        <div class="td-inner">4元</div>
+      </td>
+    </tr>
+
+  </tbody>
+ <tbody>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">餐盒费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <div class="td-inner ct-bgreen">配送费</div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner"></div>
+    </td>
+    <td>
+      <div class="td-inner">
+          <span>0元</span>
+      </div>
+    </td>
+  </tr>
+        <tr>
+          <td>
+            <div class="td-inner">用户使用了支付红包减2元</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-2.0</div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <div class="td-inner">满15.0元减3.0元。</div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner"></div>
+          </td>
+          <td>
+            <div class="td-inner">-3.0</div>
+          </td>
+        </tr>
+</tbody>
+
+<tfoot>
+ <tr>
+   <th>
+     <div class="td-inner ct-bgreen fontBold"> 总金额</div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner"></div>
+   </th>
+   <th>
+     <div class="td-inner ct-bgreen fontBold">15元</div>
+   </th>
+ </tr>
+</tfoot>
+</table>                <div class="btn-wrapper">
+                    <a href="javascript:void(0)"
+                       class="submit-form btn btn-default borderradius-3 J-print-order"
+                       data-id="235657230" data-id-seq="1"
+                       data-order-type="history">打印订单</a>
+                    <input type="hidden" name="copyContent_617394201650445" id="copyContent_617394201650445" value="4月26日
+  #1号单#
+  大学路韩国料理
+  
+  18801917567
+  华师大本科生公寓1号楼
+  泡菜培根炒饭 1份
+  韩式鸡翅 1份
+  合计：15.0元">
+                    <a href="javascript:void(0);" id="copyOrder_617394201650445"
+                       class="submit-form btn btn-black J-copy-order"
+                       data-id="617394201650445">复制订单</a>
+
+                        <span class="order-status fr">
+                        09:39 已取消订单（商家未接单顾客主动取消订单）
+                        </span>
+
+                </div>
+            </div>
+        </li>
+</ul>
+
+<div id="userHistory" style="display: none;width:700px;text-align: center;padding: 3px;">
+    <div class="modal-content">
+        <div class="modal-body"></div>
+    </div>
+</div>
+
+<div class="fr">
+        <ul class="page-navbar">
+                <span class="disable">首页</span>
+                <span class="disable prevPage">上一页</span>
+                    <span data-page="1" class="current">1</span>
+                <span class="disable nextPage">下一页</span>
+                <span class="disable">尾页</span>
+        </ul>
+</div>
+</div>
+
+
+</div>
+<!--bd end-->
+</div>
+<!--bdw end-->
+</div>
+<!--doc end-->
+
+    <script type="text/javascript" data-main="/static/compress/js/page/order/statistics.js?ver=5539e91b" src="/static/js/lib/r.js"></script>
+
+  </body>
+</html>
